@@ -51,11 +51,15 @@ export default class InfiniteGrid extends React.Component {
   // METHODS
 
   _wrapperStyle() {
+    var wrapperHeight = this.props.wrapperHeight;
+    if (!wrapperHeight && this.refs.wrapper) {
+      wrapperHeight = this.refs.wrapper.parentElement.clientHeight;
+    }
     return {
       maxHeight: this._getGridHeight(),
       overflowY: 'scroll',
       width: '100%',
-      height: this.props.wrapperHeight,
+      height: wrapperHeight,
       WebkitOverflowScrolling: true,
     };
   }
@@ -157,7 +161,7 @@ export default class InfiniteGrid extends React.Component {
   // LIFECYCLE
 
   componentWillMount() {
-    //window.addEventListener('resize', this._resizeListener);
+    window.addEventListener('resize', this._resizeListener);
   }
 
   componentDidMount() {
@@ -187,7 +191,7 @@ export default class InfiniteGrid extends React.Component {
   }
 
   componentWillUnmount() {
-    //window.removeEventListener('resize', this._resizeListener);
+    window.removeEventListener('resize', this._resizeListener);
   }
 
   // LISTENERS
@@ -202,7 +206,7 @@ export default class InfiniteGrid extends React.Component {
   _resizeListener(event) {
     if (!this.props.wrapperHeight) {
       this.setState({
-        wrapperHeight: window.innerHeight,
+        wrapperHeight: this.refs.wrapper.parentElement.clientHeight,
       });
     }
     this._updateItemDimensions();
@@ -235,7 +239,6 @@ export default class InfiniteGrid extends React.Component {
     }
     return (
       <Measure onMeasure={(dimensions) => {
-        console.log('grid:dimensions', dimensions);
         this._resizeListener(null);
       }}>
         <div className='infinite-grid-wrapper' ref='wrapper' onScroll={this._scrollListener} style={this._wrapperStyle()}>

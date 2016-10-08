@@ -20,12 +20,11 @@ class GalleryItem extends React.Component {
 
   render() {
     return (
-      <div className={s.root}>
-        <div style={{
-          width:'220px',
-          background:'#333',
-          height:'220px'
-        }}></div>
+      <div style={{
+        width: '250px',
+        height: '250px',
+        overflow: 'hidden'
+      }} className={s.root}>
         <p>{this.props.caption}</p>
         <img src={this.props.thumbnail_src} />
       </div>

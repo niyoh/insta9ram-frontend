@@ -10,3 +10,16 @@
 
 .content {
 }
+
+.parent {
+}
+
+.grid {
+  position:absolute;
+  left:0;
+  right:0;
+  top:6em;
+  bottom:0;
+  margin:0 auto;
+  max-width:1000px;
+}

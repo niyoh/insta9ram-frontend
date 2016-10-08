@@ -37,69 +37,31 @@ class GalleryPanel extends React.Component {
       {
         caption: 'This is me in one day #9gag @9gagmobile',
         thumbnail_src: 'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/c69.0.463.463/14310651_259273864466599_1743258178_n.jpg?ig_cache_key=MTM0MDQ3MTU4Njc1NDg2NDMzMg%3D%3D.2.c'
-      },
-      {
-        caption: 'Just one more episode #9gag @9gagmobile',
-        thumbnail_src: 'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/s640x640/sh0.08/e35/14351007_1939234682970443_1842768309_n.jpg?ig_cache_key=MTMzOTg3Nzg0Mzc5MDA3NjI3Ng%3D%3D.2'
-      },
-      {
-        caption: 'This is me in one day #9gag @9gagmobile',
-        thumbnail_src: 'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/c69.0.463.463/14310651_259273864466599_1743258178_n.jpg?ig_cache_key=MTM0MDQ3MTU4Njc1NDg2NDMzMg%3D%3D.2.c'
-      },
-      {
-        caption: 'Just one more episode #9gag @9gagmobile',
-        thumbnail_src: 'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/s640x640/sh0.08/e35/14351007_1939234682970443_1842768309_n.jpg?ig_cache_key=MTMzOTg3Nzg0Mzc5MDA3NjI3Ng%3D%3D.2'
-      },
-      {
-        caption: 'This is me in one day #9gag @9gagmobile',
-        thumbnail_src: 'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/c69.0.463.463/14310651_259273864466599_1743258178_n.jpg?ig_cache_key=MTM0MDQ3MTU4Njc1NDg2NDMzMg%3D%3D.2.c'
-      },
-      {
-        caption: 'Just one more episode #9gag @9gagmobile',
-        thumbnail_src: 'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/s640x640/sh0.08/e35/14351007_1939234682970443_1842768309_n.jpg?ig_cache_key=MTMzOTg3Nzg0Mzc5MDA3NjI3Ng%3D%3D.2'
-      },
-      {
-        caption: 'This is me in one day #9gag @9gagmobile',
-        thumbnail_src: 'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/c69.0.463.463/14310651_259273864466599_1743258178_n.jpg?ig_cache_key=MTM0MDQ3MTU4Njc1NDg2NDMzMg%3D%3D.2.c'
-      },
-      {
-        caption: 'Just one more episode #9gag @9gagmobile',
-        thumbnail_src: 'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/s640x640/sh0.08/e35/14351007_1939234682970443_1842768309_n.jpg?ig_cache_key=MTMzOTg3Nzg0Mzc5MDA3NjI3Ng%3D%3D.2'
-      },
-      {
-        caption: 'This is me in one day #9gag @9gagmobile',
-        thumbnail_src: 'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/c69.0.463.463/14310651_259273864466599_1743258178_n.jpg?ig_cache_key=MTM0MDQ3MTU4Njc1NDg2NDMzMg%3D%3D.2.c'
-      },
-      {
-        caption: 'Just one more episode #9gag @9gagmobile',
-        thumbnail_src: 'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/s640x640/sh0.08/e35/14351007_1939234682970443_1842768309_n.jpg?ig_cache_key=MTMzOTg3Nzg0Mzc5MDA3NjI3Ng%3D%3D.2'
-      },
-      {
-        caption: 'This is me in one day #9gag @9gagmobile',
-        thumbnail_src: 'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/c69.0.463.463/14310651_259273864466599_1743258178_n.jpg?ig_cache_key=MTM0MDQ3MTU4Njc1NDg2NDMzMg%3D%3D.2.c'
       }
     ];
 
     var entries = [];
-    for (var i = 0; i < posts.length; i ++) {
-      var post = posts[i];
-      entries.push(<GalleryItem caption={post.caption} thumbnail_src={post.thumbnail_src} key={"gallery-item-" + i} />);
+    var counter = 0;
+    for (var z = 0; z < 100; z ++) {
+      for (var i = 0; i < posts.length; i++) {
+        var post = posts[i];
+        entries.push(<GalleryItem caption={post.caption} thumbnail_src={post.thumbnail_src}
+                                  key={"gallery-item-" + counter}/>);
+      }
+      counter ++;
     }
 
     console.log('[didMount] grid width:' + document.getElementById('grid').offsetWidth);
-    ReactDOM.render(<InfiniteGrid wrapperHeight={400} width={250} height={277} entries={entries} />,
+    ReactDOM.render(<InfiniteGrid entries={entries} />,
       document.getElementById('grid'));
   }
 
   render() {
     return (
-      /*<Measure onMeasure={(dimensions) => {
-        console.log("dimensions", dimensions, this);
-      }}
-      >*/
-        <div id="grid">
+      <div className={s.parent}>
+        <div className={s.grid} id="grid">
         </div>
-      //</Measure>
+      </div>
     );
   }
 }
