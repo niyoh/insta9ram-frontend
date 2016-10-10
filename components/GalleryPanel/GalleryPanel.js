@@ -38,33 +38,7 @@ class GalleryPanel extends React.Component {
 
   infiniteGridLazyCallback() {
     console.log('lazy');
-
-    var posts = [
-      {
-        caption: 'Just one more episode #9gag @9gagmobile',
-        thumbnail_src: 'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/s640x640/sh0.08/e35/14351007_1939234682970443_1842768309_n.jpg?ig_cache_key=MTMzOTg3Nzg0Mzc5MDA3NjI3Ng%3D%3D.2'
-      },
-      {
-        caption: 'This is me in one day #9gag @9gagmobile',
-        thumbnail_src: 'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/c69.0.463.463/14310651_259273864466599_1743258178_n.jpg?ig_cache_key=MTM0MDQ3MTU4Njc1NDg2NDMzMg%3D%3D.2.c'
-      }
-    ];
-
-    var entries = [];
-    var counter = 0;
-    for (var z = 0; z < 27; z ++) {
-      for (var i = 0; i < posts.length; i++) {
-        var post = posts[i];
-        post.caption = "doraemon";
-        entries.push(<GalleryItem caption={post.caption} thumbnail_src={post.thumbnail_src}
-                                  key={"gallery-item-" + counter}/>);
-      }
-      counter ++;
-    }
-
-    ReactDOM.render(<InfiniteGrid entries={entries} width={250} height={250}
-                                  lazyCallback={this.infiniteGridLazyCallback.bind(this)} />,
-      document.getElementById('grid'));
+    this._loadMorePosts();
   }
 
   _loadMorePosts() {
