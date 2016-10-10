@@ -10,6 +10,7 @@
 
 import React, { PropTypes } from 'react';
 import s from './GalleryItem.css';
+import classNames from 'classnames';
 
 class GalleryItem extends React.Component {
 
@@ -19,14 +20,21 @@ class GalleryItem extends React.Component {
   };
 
   render() {
+    var cardClass = classNames(s.card, 'mdl-card', 'mdl-shadow--2dp');
+    var titleClass = classNames('mdl-card__title');
+    var titleStyle = {
+      background:'#fff',
+      height:'200px',
+      background:'url(\'' + this.props.thumbnail_src + '\') center / cover'
+    };
     return (
-      <div style={{
-        width: '250px',
-        height: '250px',
-        overflow: 'hidden'
-      }} className={s.root}>
-        <p>{this.props.caption}</p>
-        <img src={this.props.thumbnail_src} />
+      <div className={cardClass}>
+        <div className={titleClass} style={titleStyle}>
+          <h2 className="mdl-card__title-text"></h2>
+        </div>
+        <div className="mdl-card__supporting-text">
+          {this.props.caption}
+        </div>
       </div>
     );
   }

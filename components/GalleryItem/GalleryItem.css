@@ -11,8 +11,9 @@
 .content {
 }
 
-.root {
-  width: 250px;
-  height: 250px;
+.card {
+  width: 315px;
+  height: 245px;
+  margin: 5px;
   overflow: hidden;
 }
