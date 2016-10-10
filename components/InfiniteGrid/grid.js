@@ -25,6 +25,8 @@ export default class InfiniteGrid extends React.Component {
 
   initialState() {
     return {
+      pageReady: false,
+
       initiatedLazyload: false,
       minHeight: window.innerHeight * 2,
       minItemIndex: 0,
@@ -52,7 +54,7 @@ export default class InfiniteGrid extends React.Component {
 
   _wrapperStyle() {
     var wrapperHeight = this.props.wrapperHeight;
-    if (!wrapperHeight && this.refs.wrapper) {
+    if (this.refs.wrapper) {
       wrapperHeight = this.refs.wrapper.parentElement.clientHeight;
     }
     return {
@@ -148,6 +150,7 @@ export default class InfiniteGrid extends React.Component {
   }
 
   _numVisibleRows() {
+    if (this.state.pageReady === false) return 0;
     return Math.ceil(this._getWrapperRect().height / this._itemHeight());
   }
 
@@ -170,6 +173,7 @@ export default class InfiniteGrid extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('willreceiveprops*****', nextProps.entries.length, this.props.entries.length)
     if (nextProps.entries.length > this.props.entries.length) {
       this.setState({
         initiatedLazyload: false,
@@ -239,6 +243,7 @@ export default class InfiniteGrid extends React.Component {
     }
     return (
       <Measure onMeasure={(dimensions) => {
+        this.setState({ pageReady: true });
         this._resizeListener(null);
       }}>
         <div className='infinite-grid-wrapper' ref='wrapper' onScroll={this._scrollListener} style={this._wrapperStyle()}>
@@ -254,7 +259,7 @@ export default class InfiniteGrid extends React.Component {
 };
 
 InfiniteGrid.defaultProps = {
-  buffer: 10,
+  buffer: 0,
   padding: 10,
   entries: [],
   height: 250,
