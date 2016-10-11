@@ -21,10 +21,6 @@ class GalleryPage extends React.Component {
   };
 
   handleClick(target) {
-    var callback = () => {
-      this.refs.galleryPanel.postListLoadMore();
-    };
-
     switch (target) {
       case 'sort_by_likes':
         this.refs.galleryPanel.postListReset({
@@ -33,7 +29,7 @@ class GalleryPage extends React.Component {
             'order': 'DESC'
           }],
           maxResult: 10
-        }, callback);
+        });
         break;
 
       case 'sort_by_comments':
@@ -43,17 +39,17 @@ class GalleryPage extends React.Component {
             'order': 'DESC'
           }],
           maxResult: 10
-        }, callback);
+        });
         break;
 
       case 'sort_by_date':
         this.refs.galleryPanel.postListReset({
           sort: [{
-            'field': 'videos',
+            'field': 'date',
             'order': 'DESC'
           }],
           maxResult: 10
-        }, callback);
+        });
         break;
 
       case 'all_videos':
@@ -63,9 +59,10 @@ class GalleryPage extends React.Component {
             'order': 'DESC'
           }],
           maxResult: 10
-        }, callback);
+        });
         break;
     }
+    this.refs.galleryPanel.postListLoadMore();
   }
 
   render() {

@@ -174,8 +174,9 @@ export default class InfiniteGrid extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('willReceiveProps', nextProps);
-    if (nextProps.entries.length > this.props.entries.length) {
+    this.setState({ timestamp: Date.now() });
+
+    if (nextProps.entries.length != this.props.entries.length) {
       this.setState({ initiatedLazyload: false });
     }
     // Update these all the time because entries may change on the fly.

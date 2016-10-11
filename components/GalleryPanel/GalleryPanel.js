@@ -25,8 +25,6 @@ class GalleryPanel extends React.Component {
 
   constructor(props) {
     super(props);
-    //this.state = {
-
     this.gridStorage = {
       firstResult: -10,
       maxResult: 10,
@@ -43,29 +41,22 @@ class GalleryPanel extends React.Component {
   }
 
   postListReset(params, callback) {
-    // (force re-rendering)
-    //this.setState({
-
     this.gridStorage = {
       firstResult: -params.maxResult,
       maxResult: params.maxResult,
       sort: params.sort,
       entries: []
     };
-    callback();
-
-    //}, callback);
   }
 
   postListLoadMore() {
-    //var newState = this.state;
-    var newState = this.gridStorage;
+    var newGridStorage = this.gridStorage;
     var _this = this;
 
     fetch(`${config.API_ENDPOINT}/posts?` +
-      `firstResult=${newState.firstResult + newState.maxResult}&` +
-      `maxResult=${newState.maxResult}&` +
-      `sort=${encodeURI(JSON.stringify(newState.sort))}`)
+      `firstResult=${newGridStorage.firstResult + newGridStorage.maxResult}&` +
+      `maxResult=${newGridStorage.maxResult}&` +
+      `sort=${encodeURI(JSON.stringify(newGridStorage.sort))}`)
       .then(function(response) {
         if (response.status >= 400) {
           throw new Error("Bad response from server");
@@ -81,19 +72,18 @@ class GalleryPanel extends React.Component {
         }
 
         // add to entries
-        newState.entries = newState.entries.concat(newEntries);
+        newGridStorage.entries = newGridStorage.entries.concat(newEntries);
 
         // render InfiniteGrid
-        ReactDOM.render(<InfiniteGrid entries={newState.entries} width={330} height={280}
+        ReactDOM.render(<InfiniteGrid entries={newGridStorage.entries} width={330} height={280}
                                       lazyCallback={_this.infiniteGridLazyCallback.bind(_this)} />,
           document.getElementById('grid'));
 
         // store state
-        newState.firstResult = newState.firstResult + newState.maxResult;
-        console.log('postListLoadMore:end', newState);
+        newGridStorage.firstResult = newGridStorage.firstResult + newGridStorage.maxResult;
+        console.log('postListLoadMore:end', newGridStorage);
 
-        _this.gridStorage = newState;
-        //_this.setState(newState);
+        _this.gridStorage = newGridStorage;
       })
   }
 
@@ -102,7 +92,6 @@ class GalleryPanel extends React.Component {
   }
 
   render() {
-    console.log('&&&&&&& render once &&&&&&');
     return (
       <div className={s.parent}>
         <div className={s.grid} id="grid">
