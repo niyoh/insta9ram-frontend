@@ -33,17 +33,31 @@ class GalleryPanel extends React.Component {
         'order': 'DESC'
       }],
       entries: []
-    }
+    };
   }
 
   infiniteGridLazyCallback() {
-    console.log('lazy');
-    this._loadMorePosts();
+    this.postListLoadMore();
   }
 
-  _loadMorePosts() {
+  postListReset(params, callback) {
+    // (force re-rendering)
+    this.setState({
+      firstResult: -params.maxResult,
+      maxResult: params.maxResult,
+      sort: params.sort,
+      entries: []
+    }, callback);
+  }
+
+  postListLoadMore() {
+    console.log('postListLoadMore', this.state);
+
     var params = this.state;
     var _this = this;
+
+    console.log('state', params);
+
     fetch(`${config.API_ENDPOINT}/posts?` +
       `firstResult=${params.firstResult + params.maxResult}&` +
       `maxResult=${params.maxResult}&` +
@@ -66,7 +80,7 @@ class GalleryPanel extends React.Component {
         params.entries = params.entries.concat(newEntries);
 
         // render InfiniteGrid
-        ReactDOM.render(<InfiniteGrid entries={params.entries} width={330} height={270}
+        ReactDOM.render(<InfiniteGrid entries={params.entries} width={330} height={280}
                                       lazyCallback={_this.infiniteGridLazyCallback.bind(_this)} />,
           document.getElementById('grid'));
 
@@ -77,12 +91,10 @@ class GalleryPanel extends React.Component {
   }
 
   componentWillUpdate() {
-    console.log('[willUpdate] grid width:' + document.getElementById('grid').offsetWidth);
   }
 
   componentDidMount() {
-    console.log('GalleryPanel: didMount', document.getElementById('grid'));
-    this._loadMorePosts();
+    this.postListLoadMore();
   }
 
   render() {

@@ -12,8 +12,13 @@
 }
 
 .card {
-  width: 315px;
-  height: 245px;
-  margin: 5px;
+  width: 310px;
+  height: 240px;
+  margin: 15px;
   overflow: hidden;
+}
+
+.text {
+  font-size: 0.8rem;
+  line-height: 1rem;
 }
