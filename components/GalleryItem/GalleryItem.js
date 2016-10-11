@@ -67,10 +67,14 @@ class GalleryItem extends React.Component {
       };
       return (
         <Card className={cardClass}>
-          <CardTitle className={titleClass} style={titleStyle}>
-            <h2 className="mdl-card__title-text"></h2>
-          </CardTitle>
+          <CardTitle className={titleClass} style={titleStyle}></CardTitle>
           {supportingText}
+          <CardActions border>
+            <div style={{ 'float':'right' }}>
+              <span className={s.like}>{this.props.likes}</span>
+              <span className={s.comment}>{this.props.comments}</span>
+            </div>
+          </CardActions>
         </Card>
       )
     }
