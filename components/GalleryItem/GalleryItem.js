@@ -25,7 +25,7 @@ class GalleryItem extends React.Component {
     var titleClass = classNames('mdl-card__title');
     var supportingTextClass = classNames(s.text, 'mdl-card__supporting-text');
     if (this.props.is_video === true) {
-
+debugger;
       var titleStyle = {
         background:'#fff',
         height:'200px'

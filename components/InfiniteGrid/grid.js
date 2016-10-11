@@ -173,7 +173,6 @@ export default class InfiniteGrid extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('willreceiveprops*****', nextProps.entries.length, this.props.entries.length)
     if (nextProps.entries.length > this.props.entries.length) {
       this.setState({
         initiatedLazyload: false,
