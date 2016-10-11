@@ -9,6 +9,7 @@
  */
 
 import React, { PropTypes } from 'react';
+import {Card, CardTitle, CardText, CardActions} from 'react-mdl';
 import s from './GalleryItem.css';
 import classNames from 'classnames';
 import Video from 'react-html5video';
@@ -31,12 +32,12 @@ class GalleryItem extends React.Component {
     var timeagoFormatter = buildFormatter(timeagoShortForm);
 
     var supportingText = (
-      <div className={supportingTextClass}>
+      <CardText className={supportingTextClass}>
         <div className={s.timeago}>
           <TimeAgo date={this.props.date} formatter={timeagoFormatter} />
         </div>
         <HashtagText text={this.props.caption} />
-      </div>
+      </CardText>
     );
 
     if (this.props.is_video === "True") {
@@ -47,14 +48,14 @@ class GalleryItem extends React.Component {
         overflow:'hidden'
       };
       return (
-        <div className={cardClass}>
+        <Card className={cardClass}>
           <Video controls autoPlay loop muted
             poster={this.props.thumbnail_src}
             className={titleClass} style={titleStyle}>
             <source src={this.props.video_url} type="video/webm" />
           </Video>
           {supportingText}
-        </div>
+        </Card>
       )
 
     } else {
@@ -65,12 +66,12 @@ class GalleryItem extends React.Component {
         background:'url(\'' + this.props.thumbnail_src + '\') center / cover'
       };
       return (
-        <div className={cardClass}>
-          <div className={titleClass} style={titleStyle}>
+        <Card className={cardClass}>
+          <CardTitle className={titleClass} style={titleStyle}>
             <h2 className="mdl-card__title-text"></h2>
-          </div>
+          </CardTitle>
           {supportingText}
-        </div>
+        </Card>
       )
     }
   }
