@@ -1,0 +1,6 @@
+{
+  "name": "HashtagText",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./HashtagText.js"
+}

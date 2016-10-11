@@ -12,6 +12,10 @@ import React, { PropTypes } from 'react';
 import s from './GalleryItem.css';
 import classNames from 'classnames';
 import Video from 'react-html5video';
+import TimeAgo from 'react-timeago';
+import timeagoShortForm from 'react-timeago/lib/language-strings/en-short';
+import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
+import HashtagText from '../HashtagText';
 
 class GalleryItem extends React.Component {
 
@@ -24,6 +28,8 @@ class GalleryItem extends React.Component {
     var cardClass = classNames(s.card, 'mdl-card', 'mdl-shadow--2dp');
     var titleClass = classNames('mdl-card__title');
     var supportingTextClass = classNames(s.text, 'mdl-card__supporting-text');
+    var timeagoFormatter = buildFormatter(timeagoShortForm);
+
     if (this.props.is_video === true) {
 debugger;
       var titleStyle = {
@@ -56,13 +62,14 @@ debugger;
             <h2 className="mdl-card__title-text"></h2>
           </div>
           <div className={supportingTextClass}>
-            {this.props.caption}
+            <div className={s.timeago}>
+              <TimeAgo date={this.props.date} formatter={timeagoFormatter} />
+            </div>
+            <HashtagText text={this.props.caption} />
           </div>
         </div>
       )
     }
-
-    return ;
   }
 
 }

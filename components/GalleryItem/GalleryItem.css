@@ -22,3 +22,8 @@
   font-size: 0.8rem;
   line-height: 1rem;
 }
+
+.timeago {
+  float: right;
+  font-weight: bold;
+}

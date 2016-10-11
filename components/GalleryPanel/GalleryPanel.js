@@ -20,9 +20,6 @@ import GalleryItem from '../GalleryItem';
 
 class GalleryPanel extends React.Component {
 
-  static propTypes = {
-  };
-
   constructor(props) {
     super(props);
     this.gridStorage = {
@@ -68,6 +65,7 @@ class GalleryPanel extends React.Component {
         for (var i = 0; i < posts.length; i ++) {
           var post = posts[i];
           newEntries.push(<GalleryItem caption={post.caption} thumbnail_src={post.thumbnail_src}
+                                       date={post.date * 1000}
                                     key={"gallery-item-" + i}/>);
         }
 
