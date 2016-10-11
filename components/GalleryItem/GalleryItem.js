@@ -40,6 +40,15 @@ class GalleryItem extends React.Component {
       </CardText>
     );
 
+    var likesCommentsCount = (
+      <CardActions border>
+        <div style={{ 'float':'right' }}>
+          <span className={s.like}>{this.props.likes}</span>
+          <span className={s.comment}>{this.props.comments}</span>
+        </div>
+      </CardActions>
+    );
+
     if (this.props.is_video === "True") {
 
       var titleStyle = {
@@ -55,6 +64,7 @@ class GalleryItem extends React.Component {
             <source src={this.props.video_url} type="video/webm" />
           </Video>
           {supportingText}
+          {likesCommentsCount}
         </Card>
       )
 
@@ -69,12 +79,7 @@ class GalleryItem extends React.Component {
         <Card className={cardClass}>
           <CardTitle className={titleClass} style={titleStyle}></CardTitle>
           {supportingText}
-          <CardActions border>
-            <div style={{ 'float':'right' }}>
-              <span className={s.like}>{this.props.likes}</span>
-              <span className={s.comment}>{this.props.comments}</span>
-            </div>
-          </CardActions>
+          {likesCommentsCount}
         </Card>
       )
     }

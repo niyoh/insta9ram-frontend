@@ -74,7 +74,7 @@ class GalleryPanel extends React.Component {
         newGridStorage.entries = newGridStorage.entries.concat(newEntries);
 
         // render InfiniteGrid
-        ReactDOM.render(<InfiniteGrid entries={newGridStorage.entries} width={330} height={280}
+        ReactDOM.render(<InfiniteGrid entries={newGridStorage.entries} width={330} height={300}
                                       lazyCallback={_this.infiniteGridLazyCallback.bind(_this)} />,
           document.getElementById('grid'));
 
