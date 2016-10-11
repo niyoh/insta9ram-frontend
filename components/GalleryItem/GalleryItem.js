@@ -30,8 +30,8 @@ class GalleryItem extends React.Component {
     var supportingTextClass = classNames(s.text, 'mdl-card__supporting-text');
     var timeagoFormatter = buildFormatter(timeagoShortForm);
 
-    if (this.props.is_video === true) {
-debugger;
+    if (this.props.is_video === "True") {
+
       var titleStyle = {
         background:'#fff',
         height:'200px'
@@ -41,7 +41,7 @@ debugger;
           <Video controls autoPlay loop muted
             poster={this.props.thumbnail_src}
             className={titleClass} style={titleStyle}>
-            <source src={this.props.thumbnail_src} type="video/webm" />
+            <source src={this.props.video_url} type="video/webm" />
           </Video>
           <div className={supportingTextClass}>
             {this.props.caption}

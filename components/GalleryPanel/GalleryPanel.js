@@ -65,7 +65,7 @@ class GalleryPanel extends React.Component {
         for (var i = 0; i < posts.length; i ++) {
           var post = posts[i];
           newEntries.push(<GalleryItem caption={post.caption} thumbnail_src={post.thumbnail_src}
-                                       date={post.date * 1000}
+                                       date={post.date * 1000} is_video={post.is_video} video_url={post.video_url}
                                     key={"gallery-item-" + i}/>);
         }
 
