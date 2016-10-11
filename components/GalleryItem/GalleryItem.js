@@ -30,11 +30,21 @@ class GalleryItem extends React.Component {
     var supportingTextClass = classNames(s.text, 'mdl-card__supporting-text');
     var timeagoFormatter = buildFormatter(timeagoShortForm);
 
+    var supportingText = (
+      <div className={supportingTextClass}>
+        <div className={s.timeago}>
+          <TimeAgo date={this.props.date} formatter={timeagoFormatter} />
+        </div>
+        <HashtagText text={this.props.caption} />
+      </div>
+    );
+
     if (this.props.is_video === "True") {
 
       var titleStyle = {
         background:'#fff',
-        height:'200px'
+        height:'200px',
+        overflow:'hidden'
       };
       return (
         <div className={cardClass}>
@@ -43,9 +53,7 @@ class GalleryItem extends React.Component {
             className={titleClass} style={titleStyle}>
             <source src={this.props.video_url} type="video/webm" />
           </Video>
-          <div className={supportingTextClass}>
-            {this.props.caption}
-          </div>
+          {supportingText}
         </div>
       )
 
@@ -61,12 +69,7 @@ class GalleryItem extends React.Component {
           <div className={titleClass} style={titleStyle}>
             <h2 className="mdl-card__title-text"></h2>
           </div>
-          <div className={supportingTextClass}>
-            <div className={s.timeago}>
-              <TimeAgo date={this.props.date} formatter={timeagoFormatter} />
-            </div>
-            <HashtagText text={this.props.caption} />
-          </div>
+          {supportingText}
         </div>
       )
     }
