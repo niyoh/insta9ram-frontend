@@ -156,7 +156,7 @@ export default class InfiniteGrid extends React.Component {
 
   _lazyCallback() {
     if (!this.state.initiatedLazyload && (this.state.maxItemIndex === this.props.entries.length) && this.props.lazyCallback) {
-      this.setState({initiatedLazyload: true });
+      this.setState({ initiatedLazyload: true });
       this.props.lazyCallback(this.state.maxItemIndex);
     }
   }
@@ -168,15 +168,15 @@ export default class InfiniteGrid extends React.Component {
   }
 
   componentDidMount() {
+    console.log('InfiniteGrid:didMount');
     this._updateItemDimensions();
     this._visibleIndexes();
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('willReceiveProps', nextProps);
     if (nextProps.entries.length > this.props.entries.length) {
-      this.setState({
-        initiatedLazyload: false,
-      });
+      this.setState({ initiatedLazyload: false });
     }
     // Update these all the time because entries may change on the fly.
     // this._updateItemDimensions();
@@ -219,6 +219,7 @@ export default class InfiniteGrid extends React.Component {
   // RENDER
 
   render() {
+    console.log('***** InfiniteGrid:render *****');
     var entries = [];
 
     // if no entries exist, there's nothing left to do

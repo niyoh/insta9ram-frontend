@@ -25,7 +25,9 @@ class GalleryPanel extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
+    //this.state = {
+
+    this.gridStorage = {
       firstResult: -10,
       maxResult: 10,
       sort: [{
@@ -42,26 +44,28 @@ class GalleryPanel extends React.Component {
 
   postListReset(params, callback) {
     // (force re-rendering)
-    this.setState({
+    //this.setState({
+
+    this.gridStorage = {
       firstResult: -params.maxResult,
       maxResult: params.maxResult,
       sort: params.sort,
       entries: []
-    }, callback);
+    };
+    callback();
+
+    //}, callback);
   }
 
   postListLoadMore() {
-    console.log('postListLoadMore', this.state);
-
-    var params = this.state;
+    //var newState = this.state;
+    var newState = this.gridStorage;
     var _this = this;
 
-    console.log('state', params);
-
     fetch(`${config.API_ENDPOINT}/posts?` +
-      `firstResult=${params.firstResult + params.maxResult}&` +
-      `maxResult=${params.maxResult}&` +
-      `sort=${encodeURI(JSON.stringify(params.sort))}`)
+      `firstResult=${newState.firstResult + newState.maxResult}&` +
+      `maxResult=${newState.maxResult}&` +
+      `sort=${encodeURI(JSON.stringify(newState.sort))}`)
       .then(function(response) {
         if (response.status >= 400) {
           throw new Error("Bad response from server");
@@ -77,20 +81,20 @@ class GalleryPanel extends React.Component {
         }
 
         // add to entries
-        params.entries = params.entries.concat(newEntries);
+        newState.entries = newState.entries.concat(newEntries);
 
-        // // render InfiniteGrid
-        // ReactDOM.render(<InfiniteGrid entries={params.entries} width={330} height={280}
-        //                               lazyCallback={_this.infiniteGridLazyCallback.bind(_this)} />,
-        //   document.getElementById('grid'));
+        // render InfiniteGrid
+        ReactDOM.render(<InfiniteGrid entries={newState.entries} width={330} height={280}
+                                      lazyCallback={_this.infiniteGridLazyCallback.bind(_this)} />,
+          document.getElementById('grid'));
 
         // store state
-        params.firstResult = params.firstResult + params.maxResult;
-        _this.setState(params);
-      })
-  }
+        newState.firstResult = newState.firstResult + newState.maxResult;
+        console.log('postListLoadMore:end', newState);
 
-  componentWillUpdate() {
+        _this.gridStorage = newState;
+        //_this.setState(newState);
+      })
   }
 
   componentDidMount() {
@@ -98,34 +102,10 @@ class GalleryPanel extends React.Component {
   }
 
   render() {
-    console.log('render');
-
-    var entries = [];
-    entries.push(<GalleryItem caption="helloworld" thumbnail_src={'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/c0.17.600.600/14334627_656802444495727_72246080_n.jpg?ig_cache_key=MTM0MDQxMTU0OTI0NDA2OTI3MQ%3D%3D.2.c'}
-                              key={"gallery-item-0"}/>);
-    entries.push(<GalleryItem caption="helloworld" thumbnail_src={'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/c0.17.600.600/14334627_656802444495727_72246080_n.jpg?ig_cache_key=MTM0MDQxMTU0OTI0NDA2OTI3MQ%3D%3D.2.c'}
-                              key={"gallery-item-1"}/>);
-    entries.push(<GalleryItem caption="helloworld" thumbnail_src={'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/c0.17.600.600/14334627_656802444495727_72246080_n.jpg?ig_cache_key=MTM0MDQxMTU0OTI0NDA2OTI3MQ%3D%3D.2.c'}
-                              key={"gallery-item-2"}/>);
-    entries.push(<GalleryItem caption="helloworld" thumbnail_src={'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/c0.17.600.600/14334627_656802444495727_72246080_n.jpg?ig_cache_key=MTM0MDQxMTU0OTI0NDA2OTI3MQ%3D%3D.2.c'}
-                              key={"gallery-item-3"}/>);
-    entries.push(<GalleryItem caption="helloworld" thumbnail_src={'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/c0.17.600.600/14334627_656802444495727_72246080_n.jpg?ig_cache_key=MTM0MDQxMTU0OTI0NDA2OTI3MQ%3D%3D.2.c'}
-                              key={"gallery-item-4"}/>);
-    entries.push(<GalleryItem caption="helloworld" thumbnail_src={'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/c0.17.600.600/14334627_656802444495727_72246080_n.jpg?ig_cache_key=MTM0MDQxMTU0OTI0NDA2OTI3MQ%3D%3D.2.c'}
-                              key={"gallery-item-5"}/>);
-    entries.push(<GalleryItem caption="helloworld" thumbnail_src={'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/c0.17.600.600/14334627_656802444495727_72246080_n.jpg?ig_cache_key=MTM0MDQxMTU0OTI0NDA2OTI3MQ%3D%3D.2.c'}
-                              key={"gallery-item-6"}/>);
-    entries.push(<GalleryItem caption="helloworld" thumbnail_src={'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/c0.17.600.600/14334627_656802444495727_72246080_n.jpg?ig_cache_key=MTM0MDQxMTU0OTI0NDA2OTI3MQ%3D%3D.2.c'}
-                              key={"gallery-item-7"}/>);
-    entries.push(<GalleryItem caption="helloworld" thumbnail_src={'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/c0.17.600.600/14334627_656802444495727_72246080_n.jpg?ig_cache_key=MTM0MDQxMTU0OTI0NDA2OTI3MQ%3D%3D.2.c'}
-                              key={"gallery-item-8"}/>);
-    entries.push(<GalleryItem caption="helloworld" thumbnail_src={'https://scontent-nrt1-1.cdninstagram.com/t51.2885-15/e35/c0.17.600.600/14334627_656802444495727_72246080_n.jpg?ig_cache_key=MTM0MDQxMTU0OTI0NDA2OTI3MQ%3D%3D.2.c'}
-                              key={"gallery-item-9"}/>);
-
+    console.log('&&&&&&& render once &&&&&&');
     return (
       <div className={s.parent}>
         <div className={s.grid} id="grid">
-          <InfiniteGrid entries={entries} width={330} height={280} />
         </div>
       </div>
     );
