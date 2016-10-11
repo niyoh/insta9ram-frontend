@@ -26,7 +26,7 @@ class GalleryPanel extends React.Component {
       firstResult: -10,
       maxResult: 10,
       sort: [{
-        'field': 'date',
+        'field': 'likes',
         'order': 'DESC'
       }],
       entries: []
