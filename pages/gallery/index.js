@@ -68,11 +68,9 @@ class GalleryPage extends React.Component {
   render() {
     return (
       <Layout className={s.content}>
-        <div style={{
-          'float':'right'
-        }}>
+        <div className={s.menu}>
           <IconButton name="more_vert" id="menu-lower-right" />
-          <Menu target="menu-lower-right" valign="bottom" align="left">
+          <Menu target="menu-lower-right" valign="bottom" align="right">
             <MenuItem onClick={this.handleClick.bind(this, 'sort_by_likes')}>Sort by likes</MenuItem>
             <MenuItem onClick={this.handleClick.bind(this, 'sort_by_comments')}>Sort by comments</MenuItem>
             <MenuItem onClick={this.handleClick.bind(this, 'sort_by_date')}>Sort by date</MenuItem>

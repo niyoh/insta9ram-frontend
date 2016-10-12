@@ -15,3 +15,25 @@
   }
 
 }
+
+@media (min-width:320px) {
+
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  .menu {
+    position: relative;
+    margin-right: 1.5em;
+    float: right;
+  }
+
+}
+
+@media (min-width:801px) {
+
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  .menu {
+    position: relative;
+    margin-right: 0em;
+    float: right;
+  }
+
+}
