@@ -61,6 +61,16 @@ class GalleryPage extends React.Component {
           maxResult: 10
         });
         break;
+
+      case 'all_favorites':
+        this.refs.galleryPanel.postListReset({
+          sort: [{
+            'field': 'favorites',
+            'order': 'DESC'
+          }],
+          maxResult: 10
+        });
+        break;
     }
     this.refs.galleryPanel.postListLoadMore();
   }
@@ -74,6 +84,7 @@ class GalleryPage extends React.Component {
             <MenuItem onClick={this.handleClick.bind(this, 'sort_by_likes')}>Sort by likes</MenuItem>
             <MenuItem onClick={this.handleClick.bind(this, 'sort_by_comments')}>Sort by comments</MenuItem>
             <MenuItem onClick={this.handleClick.bind(this, 'sort_by_date')}>Sort by date</MenuItem>
+            <MenuItem onClick={this.handleClick.bind(this, 'all_favorites')}>All favorites</MenuItem>
             <MenuItem onClick={this.handleClick.bind(this, 'all_videos')}>All videos</MenuItem>
           </Menu>
         </div>

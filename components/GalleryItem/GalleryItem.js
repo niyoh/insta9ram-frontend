@@ -8,6 +8,7 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+import * as config from '../../core/config';
 import React, { PropTypes } from 'react';
 import {Card, CardTitle, CardText, CardActions} from 'react-mdl';
 import s from './GalleryItem.css';
@@ -24,6 +25,30 @@ class GalleryItem extends React.Component {
     caption: PropTypes.string.isRequired,
     thumbnail_src: PropTypes.string.isRequired,
   };
+
+  onCardClick() {
+    console.log('props:' + this.props.postId);
+    fetch(`${config.API_ENDPOINT}/favorite`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+      },
+      body: 'postId=' + this.props.postId
+    })
+      .then(function(response) {
+        if (response.status >= 400) {
+          throw new Error("Bad response from server");
+        }
+        return response.json();
+      })
+      .then(function(response) {
+        if (response.favorite === 1) {
+          alert('Favorite added!');
+        } else {
+          alert('Favorite removed!');
+        }
+      });
+  }
 
   render() {
     var cardClass = classNames(s.card, 'mdl-card', 'mdl-shadow--2dp');
@@ -78,8 +103,10 @@ class GalleryItem extends React.Component {
       return (
         <Card className={cardClass}>
           <CardTitle className={titleClass} style={titleStyle}></CardTitle>
-          {supportingText}
-          {likesCommentsCount}
+          <p onClick={this.onCardClick.bind(this)}>
+            {supportingText}
+            {likesCommentsCount}
+          </p>
         </Card>
       )
     }
